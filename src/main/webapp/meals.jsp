@@ -7,6 +7,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="f" uri="http://web.topjava.javawebinar.ru/functions"  %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,13 +18,13 @@
 <c:if test="${!empty listMeals}">
     <table class="tg" align="center" width="2">
         <tr>
-            <th width="200">Дата приема пищи</th>
-            <th width="120">Название приема пищи</th>
-            <th width="150">Каллорийность</th>
+            <th>Дата приема</th>
+            <th>Название</th>
+            <th>Каллорийность</th>
         </tr>
         <c:forEach items="${listMeals}" var="meal">
-            <tr bgcolor = <c:out value="${meal.getExceed() ? 'greed' : 'red'}" /> >
-                <td><fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${meal.getDateTime()}" /></td>
+            <tr bgcolor = <c:out value="${meal.getExceed() ? 'red' : 'green'}" /> >
+                <td>${f:formatLocalDateTime(meal.getDateTime(), 'yyyy-MM-dd hh:mm')}</td>
                 <td>${meal.getDescription()}</td>
                 <td>${meal.getCalories()}</td>
             </tr>

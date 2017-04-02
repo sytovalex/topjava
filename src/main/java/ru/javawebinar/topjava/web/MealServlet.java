@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,12 +34,16 @@ public class MealServlet extends HttpServlet {
                 new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
                 new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
         );
-        listMeals = MealsUtil.getFilteredWithExceeded(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
+        listMeals = MealsUtil.getFilteredWithExceeded(meals, LocalTime.of(0, 0), LocalTime.of(23, 59), 2000);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOG.debug("redirect to meal");
         request.setAttribute("listMeals", listMeals);
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
+    }
+
+    public static String formatLocalDateTime(LocalDateTime sourceDateTime, String pattern) {
+        return sourceDateTime.format(DateTimeFormatter.ofPattern(pattern));
     }
 }
