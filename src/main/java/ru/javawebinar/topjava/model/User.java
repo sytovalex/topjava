@@ -36,6 +36,10 @@ public class User extends NamedEntity {
         this.roles = roles;
     }
 
+    public boolean isNew() {
+        return (id == null);
+    }
+
     public String getEmail() {
         return email;
     }
